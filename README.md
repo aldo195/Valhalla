@@ -22,26 +22,33 @@ Quantitatively measure the effectiveness of your security team.
 * Simulating exploit kit attack using Metasploit
 
 <h2>How Long Until My Security Team Notices..</h2>
+
 <h3>Reconnaissance</h3>
 * Port scanning of externally facing systems
 * Port scanning inside the network
 * RDP brute-force inside the network
+
 <h3>Weaponization</h3>
 * Highly targeted spear-phishing email attack
+
 <h3>Delivery</h3>
 * An email attachment containing an APT dropper is blocked at the mail server
 * An end-user is repeatedly blocked from accessing malicious websites
+
 <h3>Exploitation</h3>
 * An attempt to dump cached Windows passwords using Mimikatz
 * An exploit kit attack is blocked at an endpoint
+
 <h3>Installation</h3>
 * An antivirus detection on a server
 * An antivirus detection on a workstation
 * A webshell backdoor on a web server
 * Presence of a publicized RAT’s keys in Windows Registry 
+
 <h3>Command and Control</h3>
 * DNS lookups to domains associated with a banking trojan every hour 
 * IP connections to a web server in Ukraine every minute 
+
 <h3>Actions on Objectives</h3>
 * NBNS scanning from a server
 * Lateral movement using psexec
