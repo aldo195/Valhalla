@@ -1,0 +1,13 @@
+[Unit]
+Description=Valhalla
+After=mariadb.service nginx.service
+
+[Service]
+Type=simple
+TimeoutStartSec=0
+Environment=TERM=dumb
+User=valhalla
+ExecStart=/usr/bin/valhallad
+
+[Install]
+WantedBy=multi-user.target

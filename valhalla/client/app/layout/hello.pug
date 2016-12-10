@@ -1,0 +1,13 @@
+#hello
+    md-card#hello-card(ng-model="message", ng-init="message = 'Search Now!'")
+        md-card-title
+            md-card-title-text
+                span.md-headline Valhalla
+        md-card-content
+            md-toolbar
+                .md-toolbar-tools
+                    h1 {{ message }}
+            p Valhalla is a template project, just for you.
+            p Angular, Material, and much more!
+            p
+                a.btn.btn-primary.btn-lg(ui-sref="search") {{ message }}
