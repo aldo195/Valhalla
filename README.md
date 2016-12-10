@@ -1,4 +1,4 @@
-<h1>Valhalla.io</h1>
+<h1>Valhalla</h1>
 
 “Don’t be a security sucker. Enter Valhalla.”
 
