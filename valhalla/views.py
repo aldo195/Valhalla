@@ -17,27 +17,43 @@ def search():
     data = json.loads(request.data)
     term = data['q']
 
-    results = [
+    raid_db = [
         {
-            'name': '1',
-            'data': 'Now then, some cheese please, my good man.'
+            'id': '101',
+            'param': 'Target Location'
         },
         {
-            'name': '2',
-            'data': '(lustily) Certainly, sir. What would you like?'
+            'id': '102',
+            'param': 'Target Location'
         },
         {
-            'name': '3',
-            'data': 'Well, eh, how about a little red Leicester.'
-        },
-        {
-            'name': '4',
-            'data': 'I\'m, a-fraid we\'re fresh out of red Leicester, sir.'
+            'id': '103',
+            'param': 'Target IP Address'
         }
     ]
 
     if term != '':
-        for result in results:
-            result['data'] = result['data'].replace(term, '<em>%s</em>' % term)
+        for raid in raid_db:
+            if raid['id'] == term:
+                result = raid
 
-    return json.dumps(results)
+    return json.dumps(result)
+
+
+@app_views.route('/api/generate', methods=['POST'])
+def generate():
+    data = json.loads(request.data)
+
+    # Process for generating a new raid at the server:
+    # Pick a random raid ID
+    # Connect to database
+    # Create a new object with:
+    # 1. raid-id
+    # 2. raid-type-id
+    # 3. list of parameter name-value pairs
+
+    # until database added, this just returns success
+
+    result = 'Successfully created raid of type '+data['type']+' with parameter: '+data['path']
+    print(result)
+    return result
