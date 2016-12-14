@@ -4,7 +4,7 @@ EICAR_SOURCE = 'http://ec2-35-165-51-220.us-west-2.compute.amazonaws.com/eicar.c
 
 from flask import Flask, jsonify, abort
 
-from temp.generate_powershell import ps_downloader
+from valhalla.generate_powershell import ps_downloader
 
 app = Flask(__name__)
 

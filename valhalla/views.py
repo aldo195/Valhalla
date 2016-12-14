@@ -1,6 +1,6 @@
-from flask import render_template, Blueprint, json, request
+from flask import render_template, Blueprint, json, request, Response
 
-from . import config
+from . import config, generate_powershell
 
 app_views = Blueprint('app_views', __name__,
                       template_folder=config.TEMPLATE_FOLDER)
@@ -55,5 +55,25 @@ def generate():
     # until database added, this just returns success
 
     result = 'Successfully created raid of type '+data['type']+' with parameter: '+data['path']
-    print(result)
-    return result
+
+    return json.dumps(result)
+
+
+@app_views.route('/api/run', methods=['GET'])
+def run():
+    result = {
+        'id': '1337',
+        'path': r'C:\Users\Omer\Documents\Valhalla'
+    }
+
+    return json.dumps(result)
+
+
+@app_views.route('/download_raid', methods=['GET'])
+def download_raid():
+    # Create raid powershell script with ID built in
+    raid_contents = generate_powershell.ps_downloader('777', r'%appdata%')
+
+    # Send raid script for user to download
+    return Response(raid_contents, mimetype="text/plain",
+                    headers={"Content-Disposition": "attachment;filename=raid.ps1"})
