@@ -18,5 +18,5 @@ else:
     PORT = 8000
 # DB credentials.
 DB_HOST = 'localhost'
-DB_USERNAME = 'valhalla'
-DB_PASSWORD = '' if DEBUG else 'Password1'
+DB_USERNAME = 'AKIAJ5AD5MHDSY2NWAQA'
+DB_PASSWORD = 'nGEnZ461s6x2/cFafLBfU6xBJanjHFIA/u4b/RVa' if DEBUG else 'Password1'

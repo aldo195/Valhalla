@@ -3,6 +3,7 @@ import sys
 
 import click
 import logbook
+import boto3
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from tornado.wsgi import WSGIContainer
@@ -42,7 +43,8 @@ def run_server_logged(ip, port, use_ssl):
 @click.option('--use-ssl/--no-ssl', default=config.IS_SSL, is_flag=True)
 @click.option('--db', default=config.DB_HOST)
 def main(ip, port, use_ssl, db):
-    config.DB_HOST = db
+    #config.DB_HOST = db
+
     run_server_logged(ip, port, use_ssl)
 
 
