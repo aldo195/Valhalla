@@ -8,30 +8,12 @@
                 md-list-item
                     md-input-container
                         label Select a raid
-                        md-select(ng-model="searchVm.selected.target", ng-change="searchVm.selectRaidType()")
+                        md-select(ng-model="searchVm.selected.target")
                             md-option(ng-repeat="target in searchVm.targets", ng-value="target")
                                 | {{ target.name }}
                 md-list-item
                     label Choose folder for dropping the malware:
                         input(ng-model="searchVm.malwarePath", valhalla-enter="searchVm.createRaid()")
 
-                p {{ searchVm.malwarePath }}
-//
-                md-list-item
-                    label Title
-                        input(ng-model='searchVm.title')
-                    span  (Hint: Change me!)
-
-                md-list-item
-                    label Term
-                        input(ng-model='searchVm.searchTerm', ng-init="searchVm.searchTerm", valhalla-enter="searchVm.search(searchVm.searchTerm)")
-                    span  (Hint: Enter on me!)
-
-                md-list-item(ng-repeat="result in searchVm.searchResults")
-                    strong Name:
-                    span  {{ result.name }}
-                    br
-                    strong Data:
-                    div(ng-bind-html="result.data")
-
-
+                p Copy this raid ID into your powershell file cuz linking aint ez: {{ searchVm.raidId }}
+                // TODO: Enable downloading powershell file
