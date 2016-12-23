@@ -2,18 +2,25 @@
     md-card#search-card
         md-card-title
             md-card-title-text
-                span.md-headline Valhalla Demo
+                span.md-headline Valhalla PoC
         md-card-content
             md-list(flex)
                 md-list-item
                     md-input-container
                         label Select a raid
-                        md-select(ng-model="searchVm.selected.target")
+                        md-select(ng-model="searchVm.selected.target", ng-change="searchVm.createRaid()")
                             md-option(ng-repeat="target in searchVm.targets", ng-value="target")
                                 | {{ target.name }}
-                md-list-item
-                    label Choose folder for dropping the malware:
-                        input(ng-model="searchVm.malwarePath", valhalla-enter="searchVm.createRaid()")
+            md-list-item
+                p Active raid:<br>{{ searchVm.raidId }}
+                br
+            md-list-item
+                p Enter the active raid's trophy value once your team finds it:
+                br
+                br
+                input(ng-model="searchVm.trophy", valhalla-enter="searchVm.finishRaid()")
+            md-list-item
+                label Raid lasted {{ searchVm.elapsedTime }} seconds
 
-                p Copy this raid ID into your powershell file cuz linking aint ez: {{ searchVm.raidId }}
-                // TODO: Enable downloading powershell file
+
+            // TODO: Enable downloading powershell file

@@ -12,7 +12,9 @@
 
     searchVm.title = defaultTitle;
     searchVm.selected = {};
-    searchVm.malwarePath = '%appdata%';
+    searchVm.trophy = '';
+    searchVm.raidId = '';
+    searchVm.elapsedTime = '0';
 
     searchVm.targets = [
       {
@@ -29,13 +31,19 @@
     ];
 
     searchVm.createRaid = function() {
-      console.log('Creating new raid with location ', searchVm.malwarePath);
       searchService.generate({
-        'type': searchVm.selected.target.id,
-        'path': searchVm.malwarePath
+        'type': searchVm.selected.target.id
       }).then(function(data) {
-        console.log(data);
         searchVm.raidId = data;
+      });
+    };
+
+    searchVm.finishRaid = function() {
+      searchService.finish({
+        'raidId': searchVm.raidId,
+        'trophy': searchVm.trophy
+      }).then(function(data) {
+        searchVm.elapsedTime = data;
       });
     };
   }

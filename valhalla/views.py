@@ -1,8 +1,8 @@
 from flask import render_template, Blueprint, json, request, Response
 
 from . import config, generate_powershell
-
-import boto3, uuid
+from random import randint
+import boto3, uuid, time
 
 app_views = Blueprint('app_views', __name__,
                       template_folder=config.TEMPLATE_FOLDER)
@@ -18,29 +18,78 @@ def hello_world(path=None):
 def generate():
     data = json.loads(request.data)
 
-    # Process for generating a new raid at the server:
-    # Pick a random raid ID
-    # Connect to database
-    # Create a new object with:
-    # 1. raid-id
-    # 2. raid-type-id
-    # 3. list of parameter name-value pairs
-
+    # Generate unique Raid identifier
     raid_id = str(uuid.uuid4())
+
+    # Generate the Raid's trophy code
+    trophy = str(randint(100000, 999999))
+
+    # Record raid start time
+    start_time = str(time.time())
 
     dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="https://dynamodb.us-west-2.amazonaws.com")
     table = dynamodb.Table('raids_dev')
     response = table.put_item(
         Item={
             'raidID': raid_id,
+            'startTime': start_time,
+            'endTime': '0',
+            'elapsedTime': 0,
+            'trophy': trophy,
             'raidType': data['type'],
-            'path': data['path']
         }
     )
 
     # TODO: Handle bad response
 
     return raid_id
+
+
+@app_views.route('/api/finish', methods=['POST'])
+def finish():
+    data = json.loads(request.data)
+
+    # Get parameter values from POST request
+    raid_id = data['raidId']
+    posted_trophy = data['trophy']
+
+
+    # Get raid values from database
+    dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="https://dynamodb.us-west-2.amazonaws.com")
+    table = dynamodb.Table('raids_dev')
+    response = table.get_item(
+        Key={
+            'raidID': raid_id
+        }
+    )
+    start_time = str(response['Item']['startTime'])
+    elapsed_time = str(response['Item']['elapsedTime'])
+    raid_trophy = str(response['Item']['trophy'])
+
+    if elapsed_time != '0':
+        return str(elapsed_time)
+    elif posted_trophy != raid_trophy:
+        # The user did not provide the right trophy value, do not end the raid
+        return '0'
+    else:
+        # Calculate how long the raid lasted
+        end_time = str(time.time())
+        elapsed_time = str(int(float(end_time) - float(start_time)))
+
+        response = table.update_item(
+            Key={
+                'raidID': raid_id
+            },
+            UpdateExpression="set endTime = :t, elapsedTime = :e",
+            ExpressionAttributeValues={
+                ':t': end_time,
+                ':e': elapsed_time
+            }
+        )
+        # TODO: Handle bad response
+
+        return elapsed_time
+
 
 
 @app_views.route('/api/run', methods=['GET'])
@@ -54,7 +103,6 @@ def run():
     )
 
     path = response['Item']['path']
-    print(path)
 
     result = {
         'path': path
