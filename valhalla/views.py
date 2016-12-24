@@ -18,6 +18,8 @@ def hello_world(path=None):
 def generate():
     data = json.loads(request.data)
 
+    raid_type = data['type']
+
     # Generate unique Raid identifier
     raid_id = str(uuid.uuid4())
 
@@ -36,13 +38,20 @@ def generate():
             'endTime': '0',
             'elapsedTime': 0,
             'trophy': trophy,
-            'raidType': data['type'],
+            'raidType': raid_type
         }
     )
 
     # TODO: Handle bad response
 
-    return raid_id
+    result = {
+            'raid_id': raid_id,
+            'raid_type': raid_type,
+            'trophy': trophy
+    }
+
+    return json.dumps(result)
+
 
 
 @app_views.route('/api/finish', methods=['POST'])
@@ -91,7 +100,6 @@ def finish():
         return elapsed_time
 
 
-
 @app_views.route('/api/run', methods=['GET'])
 def run():
     dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="https://dynamodb.us-west-2.amazonaws.com")
@@ -102,10 +110,12 @@ def run():
         }
     )
 
-    path = response['Item']['path']
+    print(response)
+
+    trophy = response['Item']['trophy']
 
     result = {
-        'path': path
+        "trophy": trophy
     }
 
     return json.dumps(result)
@@ -115,14 +125,12 @@ def run():
 @app_views.route('/download_raid', methods=['GET'])
 def download_raid():
 
-    print('download raid')
-
     raid_type = request.args.get('type')
     raid_id = request.args.get('id')
-
+    trophy = request.args.get('trophy')
 
     # Create raid powershell script based on the type
-    raid_contents = generate_powershell.ps_downloader(raid_type, raid_id)
+    raid_contents = generate_powershell.ps_downloader(raid_type, raid_id, trophy)
 
     # Send raid script for user to download
     return Response(raid_contents, mimetype="text/plain",

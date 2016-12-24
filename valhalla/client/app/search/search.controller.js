@@ -16,6 +16,8 @@
     searchVm.raidId = '';
     searchVm.elapsedTime = '0';
 
+    searchVm.downloadURL = 'foobar';
+
     searchVm.targets = [
       {
         id: '101',
@@ -34,7 +36,10 @@
       searchService.generate({
         'type': searchVm.selected.target.id
       }).then(function(data) {
-        searchVm.raidId = data;
+        searchVm.raidId = data['raid_id'];
+        var set_trophy = data['trophy'];  // Can't use the scope variable or the trophy entry field will be populated
+        searchVm.raidType = data['raid_type'];
+        searchVm.downloadURL = 'download_raid?type=' + searchVm.raidType + '&id=' + searchVm.raidId + '&trophy=' + set_trophy;
       });
     };
 

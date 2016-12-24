@@ -1,12 +1,12 @@
-def ps_downloader(raid_type, raid_id):
-    if raid_type == '100':
+def ps_downloader(raid_type, raid_id, trophy):
+    if raid_type in ['100', '101', '102']:
         ps = \
-            '$request = "http://localhost:8000/api/run?id='+raid_id+' \n \
+            '$request = "http://localhost:8000/api/run?raidid='+raid_id+'" \n \
 $eicar_url = "http://jenda.krynicky.cz/perl/FileType.pm.txt" \n \
 Invoke-WebRequest $request | \n \
 ConvertFrom-Json | \n \
-Select path -OutVariable $folder \n \
-$eicar_file = $folder+"eicar.txt" \n \
+Select trophy -OutVariable trophy \n \
+$eicar_file = $env:temp+"\\"+$trophy+".txt" \n \
 Invoke-WebRequest -Uri $eicar_url -OutFile $eicar_file'
     else:
         ps = "Type not supported"

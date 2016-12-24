@@ -2,7 +2,7 @@
     md-card#search-card
         md-card-title
             md-card-title-text
-                span.md-headline Valhalla PoC
+                span.md-headline Valhalla.io  |  Launch Raid
         md-card-content
             md-list(flex)
                 md-list-item
@@ -12,15 +12,15 @@
                             md-option(ng-repeat="target in searchVm.targets", ng-value="target")
                                 | {{ target.name }}
             md-list-item
-                p Active raid:<br>{{ searchVm.raidId }}
-                br
+                a(ng-href='{{ searchVm.downloadURL }}', target="_blank")
+                    p Click to download
             md-list-item
                 p Enter the active raid's trophy value once your team finds it:
                 br
                 br
                 input(ng-model="searchVm.trophy", valhalla-enter="searchVm.finishRaid()")
             md-list-item
-                label Raid lasted {{ searchVm.elapsedTime }} seconds
+                label {{ searchVm.elapsedTime == 0 ? '': 'Raid lasted ' + searchVm.elapsedTime + ' seconds.' }}
 
 
             // TODO: Enable downloading powershell file
