@@ -34,6 +34,14 @@
           templateUrl: '/media/build/search/search.html',
           controller: 'SearchController as searchVm'
         }
+      },
+      {
+        state: 'report',
+        config: {
+          url: '/report',
+          templateUrl: '/media/build/report/report.html',
+          controller: 'ReportController as reportVm'
+        }
       }
     ];
   }

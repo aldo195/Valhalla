@@ -6,13 +6,13 @@
       // Angular libraries.
       'ngAnimate', 'ngSanitize', 'ngMessages', 'ngAria',
       // External libraries.
-      'ui.router', 'ngMaterial',
+      'ui.router', 'ngMaterial', 'chart.js',
       // Basic app blocks.
       'blocks.router',
       // Components.
       'app.components',
       // Feature modules.
-      'app.search'
+      'app.search', 'app.report'
     ])
     .run(setGlobalState);
 

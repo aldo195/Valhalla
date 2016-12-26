@@ -1,0 +1,8 @@
+#report
+    md-card#report-card
+        md-card-title
+            md-card-title-text
+                span.md-headline Valhalla.io  |  Reporting
+        md-card-content
+            label Chart
+            canvas#line.chart.chart-line(chart-data="reportVm.data", chart-labels="reportVm.labels", chart-series="reportVm.series", chart-options="reportVm.options", chart-dataset-override="reportVm.datasetOverride")
