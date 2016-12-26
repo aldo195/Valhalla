@@ -1,5 +1,5 @@
-#search
-    md-card#search-card
+#raid
+    md-card#raid-card
         md-card-title
             md-card-title-text
                 span.md-headline Valhalla.io  |  Launch Raid
@@ -8,16 +8,16 @@
                 md-list-item
                     md-input-container
                         label Select a raid
-                        md-select(ng-model="searchVm.selected.target", ng-change="searchVm.createRaid()")
-                            md-option(ng-repeat="target in searchVm.targets", ng-value="target")
+                        md-select(ng-model="raidVm.selected.target", ng-change="raidVm.createRaid()")
+                            md-option(ng-repeat="target in raidVm.targets", ng-value="target")
                                 | {{ target.name }}
             md-list-item
-                a(ng-href='{{ searchVm.downloadURL }}', target="_blank")
+                a(ng-href='{{ raidVm.downloadURL }}', target="_blank")
                     p Click to download
             md-list-item
                 p Enter the active raid's trophy value once your team finds it:
                 br
                 br
-                input(ng-model="searchVm.trophy", valhalla-enter="searchVm.finishRaid()")
+                input(ng-model="raidVm.trophy", valhalla-enter="raidVm.finishRaid()")
             md-list-item
-                label {{ searchVm.elapsedTime == 0 ? '': 'Raid lasted ' + searchVm.elapsedTime + ' seconds.' }}
+                label {{ raidVm.elapsedTime == 0 ? '': 'Raid lasted ' + raidVm.elapsedTime + ' seconds.' }}

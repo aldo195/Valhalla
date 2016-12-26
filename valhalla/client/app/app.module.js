@@ -12,7 +12,7 @@
       // Components.
       'app.components',
       // Feature modules.
-      'app.search', 'app.report'
+      'app.raid', 'app.report'
     ])
     .run(setGlobalState);
 

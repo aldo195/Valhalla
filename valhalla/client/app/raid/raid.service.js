@@ -2,11 +2,11 @@
   'use strict';
 
   angular
-    .module('app.search')
-    .factory('searchService', searchService);
+    .module('app.raid')
+    .factory('raidService', raidService);
 
   /* @ngInject */
-  function searchService($http, $log) {
+  function raidService($http, $log) {
 
     return {
       generate: generate,

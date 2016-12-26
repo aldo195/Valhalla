@@ -20,19 +20,11 @@
         }
       },
       {
-        state: 'search',
+        state: 'raid',
         config: {
-          url: '/search',
-          templateUrl: '/media/build/search/search.html',
-          controller: 'SearchController as searchVm'
-        }
-      },
-      {
-        state: 'search.term',
-        config: {
-          url: '/{term:\\w*}',
-          templateUrl: '/media/build/search/search.html',
-          controller: 'SearchController as searchVm'
+          url: '/raid',
+          templateUrl: '/media/build/raid/raid.html',
+          controller: 'RaidController as raidVm'
         }
       },
       {
